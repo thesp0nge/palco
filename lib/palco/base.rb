@@ -39,9 +39,9 @@ module Palco
       @generated = false
 
       if @project_name.nil? or @items_list.size==0
-        valid = false
+        @valid = false
       else
-        valid = true
+        @valid = true
       end
     end
     
