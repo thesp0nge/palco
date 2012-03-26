@@ -1,3 +1,4 @@
+require 'fileutils'
 # Public: the base palco skelethon builder.
 #
 # Ideally it will never called directly but it will be subclassed by
@@ -55,7 +56,20 @@ module Palco
     #   True if every item in the item list has been created of false otherwise.
     #
     def generate
-      false
+      FileUtils.mkdir(File.join(Dir.pwd, @project_name))
+
+      @items_list.each do |item|
+        fullname = File.join(Dir.pwd, @project_name, item[:name])
+        isfile = item[:file]
+        if isfile 
+          FileUtils.touch(fullname)
+        else
+          FileUtils.mkdir(fullname)
+        end
+      end
+      @generated = true
+      return true
+
     end
 
     # Public: destroy the skelethon removing all files and all directories.
@@ -73,15 +87,25 @@ module Palco
     #   True if all items in the item list has been removed or false otherwise.
     #   
     def destroy
+      if ! self.generated?
+        return false
+      end
+      FileUtils.rm_rf(@project_name)
+      @valid = false
+      @generated= false
       true
+    end
+
+    def can_generate?
+      ! File.directory?(File.join(Dir.pwd, @project_name))
     end
 
     def valid?
       return self.valid
     end
 
-    def generate?
-      return self.generate
+    def generated?
+      return self.generated
     end
 
   end
