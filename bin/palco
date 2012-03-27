@@ -3,3 +3,26 @@
 require 'palco'
 require 'rainbow'
 require 'getoptlong'
+
+opts = GetoptLong.new(
+  [ '--help', '-h', GetoptLong::NO_ARGUMENT ],
+  [ '--version', '-v', GetoptLong::NO_ARGUMENT ],
+  [ '--extension', '-e', GetoptLong::NO_ARGUMENT ],
+  [ '--app', '-a', GetoptLong::NO_ARGUMENT]
+)
+
+opts.each do |opt, arg|
+  case opt
+  when '--version'
+    puts Palco::VERSION
+    exit 0
+  when '--help'
+    puts 'usage: palco options name'
+    printf "options are:\n"
+    printf "\t-e creates a Sinatra extension\n"
+    printf "\t-a creates a Sinatra application\n"
+    printf "\t-h shows this help\n"
+    printf "\t-v prints palco version\n"
+    exit 0
+  end
+end
