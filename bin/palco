@@ -11,6 +11,8 @@ opts = GetoptLong.new(
   [ '--app', '-a', GetoptLong::NO_ARGUMENT]
 )
 
+is_app = false
+
 opts.each do |opt, arg|
   case opt
   when '--version'
@@ -24,5 +26,24 @@ opts.each do |opt, arg|
     printf "\t-h shows this help\n"
     printf "\t-v prints palco version\n"
     exit 0
+  when '--app'
+    is_app = true
   end
+end
+
+name = ARGV.shift
+
+printf "palco is creating a stage named #{name} for a Sinatra ".color(:white)
+if is_app
+  printf "application: ".color(:yellow)
+  stage = Palco::Application.new(name)
+else
+  printf "extension: ".color(:blue)
+  stage = Palco::Extension.new(name)
+end
+
+if stage.generate
+  printf "success\n".color(:green)
+else
+  printf "fail\n".color(:red)
 end
