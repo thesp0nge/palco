@@ -87,7 +87,7 @@ module Palco
     #   True if all items in the item list has been removed or false otherwise.
     #   
     def destroy
-      if ! self.generated?
+      if ! self.generated? and self.can_generate?
         return false
       end
       FileUtils.rm_rf(@project_name)
