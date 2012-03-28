@@ -1,3 +1,3 @@
 module Palco
-  VERSION = "0.90.1"
+  VERSION = "0.95.20120328"
 end
