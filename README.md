@@ -30,3 +30,16 @@ Using palco to generate [Sinatra extensions](http://www.sinatrarb.com/extensions
 palco -e my_great_extention
 ```
 
+You can also create a Sinatra basic application skeleton in order to fire
+rackup and start working:
+
+```
+palco -a my_app
+```
+
+And if you don't like your work... just destroy it (even a rm command is working here):
+
+``` 
+palco -D my_app
+```
+
