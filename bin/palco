@@ -38,6 +38,11 @@ end
 
 name = ARGV.shift
 
+if name.nil?
+  puts "missing argument".color(:red)
+  exit 1
+end
+
 if destroy
   printf "palco is destroying a stage named #{name}: ".color(:white)
   base = Palco::Base.new(name)
