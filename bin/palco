@@ -8,10 +8,12 @@ opts = GetoptLong.new(
   [ '--help', '-h', GetoptLong::NO_ARGUMENT ],
   [ '--version', '-v', GetoptLong::NO_ARGUMENT ],
   [ '--extension', '-e', GetoptLong::NO_ARGUMENT ],
-  [ '--app', '-a', GetoptLong::NO_ARGUMENT]
+  [ '--app', '-a', GetoptLong::NO_ARGUMENT],
+  [ '--destroy', '-D', GetoptLong::NO_ARGUMENT]
 )
 
 is_app = false
+destroy = false
 
 opts.each do |opt, arg|
   case opt
@@ -23,15 +25,30 @@ opts.each do |opt, arg|
     printf "options are:\n"
     printf "\t-e creates a Sinatra extension\n"
     printf "\t-a creates a Sinatra application\n"
+    printf "\t-D destroy a previously created project\n"
     printf "\t-h shows this help\n"
     printf "\t-v prints palco version\n"
     exit 0
   when '--app'
     is_app = true
+  when '--destroy'
+    destroy = true
   end
 end
 
 name = ARGV.shift
+
+if destroy
+  printf "palco is destroying a stage named #{name}: ".color(:white)
+  base = Palco::Base.new(name)
+  if base.destroy
+    printf "success\n".color(:green)
+  else
+    printf "fail\n".color(:red)
+  end
+
+  exit 0
+end
 
 printf "palco is creating a stage named #{name} for a Sinatra ".color(:white)
 if is_app
@@ -41,6 +58,7 @@ else
   printf "extension: ".color(:blue)
   stage = Palco::Extension.new(name)
 end
+
 
 if stage.generate
   printf "success\n".color(:green)
