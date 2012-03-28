@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Palco::VERSION
   s.authors     = ["Paolo Perego"]
   s.email       = ["thesp0nge@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "http://armoredcode.com"
+  s.summary     = %q{Creates Sinatra application and extension directory layout}
+  s.description = %q{Creates Sinatra application and extension directory layout}
 
   s.rubyforge_project = "palco"
 
