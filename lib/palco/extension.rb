@@ -6,7 +6,8 @@ module Palco
       {:name=>'Rakefile', :file=>true},
       {:name=>'lib', :file=>false},
       {:name=>'lib/sinatra', :file=>false}, 
-      {:name=>'test', :file=>false},
+      {:name=>'spec', :file=>false},
+      {:name=>'spec/spec_helper', :file=>true},
       {:name=>'LICENSE', :file=>true},
     ]
 
@@ -25,7 +26,7 @@ module Palco
     def initialize(name)
       list = FILE_LIST 
       list = list << {:name=>"lib/sinatra/#{name}.rb", :file=>true}
-      list = list << {:name=>"test/spec_sinatra_#{name}.rb", :file=>true}
+      list = list << {:name=>"spec/sinatra_#{name}_spec.rb", :file=>true}
       list = list << {:name=>"sinatra_#{name}.gemspec", :file=>true}
 
       super(name, list)
