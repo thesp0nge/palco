@@ -56,6 +56,10 @@ module Palco
     #   True if every item in the item list has been created of false otherwise.
     #
     def generate
+      if ! self.can_generate?
+        return false
+      end
+
       FileUtils.mkdir(File.join(Dir.pwd, @project_name))
 
       @items_list.each do |item|
