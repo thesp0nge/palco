@@ -4,4 +4,4 @@ require "palco/extension"
 require "palco/application"
 require "palco/filebase"
 require "palco/license"
-
+require "palco/gemspec"

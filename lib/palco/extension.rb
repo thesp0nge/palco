@@ -35,8 +35,6 @@ module Palco
 
     def generate
       super
-      puts "AAAA #{@r}"
-
       license = Palco::License.new(@r)
       license.create
 
