@@ -12,11 +12,14 @@ module Palco
     attr_reader :email
     attr_reader :full_path_name
 
+    attr_accessor :file_content
+
     def initialize(root_dir, name)
       @full_path_name = File.join(Dir.pwd, root_dir, name)
       conf = Git.global_config
       @user_name  = conf["user.name"]
       @email      = conf["user.email"]
+      @file_content = ""
 
     end
 
@@ -42,10 +45,6 @@ module Palco
 
     end
 
-    def inject(string)
-
-    end
-
     def find(string)
       text = self.read
       text.include?(string)
@@ -53,8 +52,7 @@ module Palco
 
     # Public: creates a new file. 
     #
-    # Palco::File.create however is just a stub... every specialized class must
-    # implement this method accordingly with the content they file deserve to.
+    # Please note that it's up to every subclass to fill the file_content
     #
     # Example
     #   file = Palco::File.new('test', 'a_file')
@@ -64,7 +62,7 @@ module Palco
     #   Returns true if the file can be created with the proper content or
     #   false otherwise
     def create
-      true
+      self.write(@file_content)
     end
   end
 end

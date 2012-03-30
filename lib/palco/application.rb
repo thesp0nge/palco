@@ -13,6 +13,8 @@ module Palco
       {:name=>'public', :file=>false},
       {:name=>'views', :file=>false},
       {:name=>'logs', :file=>false},
+      {:name=>'spec/spec_helper.rb', :file=>true},
+
     ]
  
     # Public: creates a new Sinatra modular application skeleton.
@@ -36,6 +38,7 @@ module Palco
     #   A new Sinatra modular application. Fire up rackup or shotgun and start
     #   hacking.
     def initialize(name)
+      @r = name
       list = FILE_LIST
 
       list = list << {:name=>"lib/#{name}", :file=>false}
@@ -45,6 +48,31 @@ module Palco
 
 
     end
-    
+
+    def generate
+      super
+      license = Palco::License.new(@r)
+      license.create
+
+      file = Palco::FileBase.new(@r, "lib/#{@r}/version.rb")
+      file.file_content = "module #{@r.capitalize}\nVERSION=\"0.0.0\"\nend\n"
+      file.create
+
+      file = Palco::FileBase.new(@r, "spec/spec_helper.rb")
+      file.file_content = "require '#{@r}'\n"
+      file.create
+
+
+      file = Palco::FileBase.new(@r, "app.rb")
+      file.file_content = "require 'sinatra/base'\nclass #{@r.capitalize} < Sinatra::Base\n# ... app code here ... \n\n # start the server if execute this file directly\n run! if app_file == $0\nend\n"
+      file.create
+
+      file = Palco::FileBase.new(@r, "config.ru")
+      file.file_content = "require './app'\nlog = File.new(\"logs/#{@r}.log\", \"a\")\nSTDOUT.reopen(log)\nSTDERR.reopen(log)\nrun #{@r.capitalize}::App\n"
+      file.create
+
+
+    end
+
   end
 end

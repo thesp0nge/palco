@@ -26,5 +26,6 @@ module Palco
       @file_content << "# s.add_development_dependency \"rspec\"\n"
       @file_content << "end\n"
     end
+
   end
 end

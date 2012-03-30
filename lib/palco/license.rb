@@ -46,10 +46,5 @@ module Palco
     def new_bsd?
       return self.find(@file_content)
     end
-
-    def create
-      self.write(@file_content)
-    end 
-
   end
 end

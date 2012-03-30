@@ -26,7 +26,7 @@ module Palco
     def initialize(name)
       @r = name
       list = FILE_LIST 
-      list = list << {:name=>"lib/sinatra/#{name}.rb", :file=>true}
+      list = list << {:name=>"lib/sinatra/version.rb", :file=>true}
       list = list << {:name=>"spec/sinatra_#{name}_spec.rb", :file=>true}
       list = list << {:name=>"sinatra_#{name}.gemspec", :file=>true}
 
@@ -40,6 +40,19 @@ module Palco
       gemspec = Palco::Gemspec.new(@r)
       gemspec.create
 
+      file = Palco::FileBase.new(@r, "lib/sinatra/version.rb")
+      file.file_content = "module #{@r.capitalize}\nVERSION=\"0.0.0\"\nend\n"
+      file.create
+
+      file = Palco::FileBase.new(@r, "spec/spec_helper.rb")
+      file.file_content = "require '#{@r}'\n"
+      file.create
+
+      file = Palco::FileBase.new(@r, "lib/sinatra/#{@r}.rb")
+      file.file_content ="require 'sinatra/base'\n\nmodule Sinatra\nmodule #{@r.capitalize}\nend\nregister #{@r}\nend\n"
+      file.create
+
+     
     end
 
   end
