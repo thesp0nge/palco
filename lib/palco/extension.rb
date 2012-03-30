@@ -7,7 +7,7 @@ module Palco
       {:name=>'lib', :file=>false},
       {:name=>'lib/sinatra', :file=>false}, 
       {:name=>'spec', :file=>false},
-      {:name=>'spec/spec_helper', :file=>true},
+      {:name=>'spec/spec_helper.rb', :file=>true},
       {:name=>'LICENSE', :file=>true},
     ]
 
@@ -37,6 +37,8 @@ module Palco
       super
       license = Palco::License.new(@r)
       license.create
+      gemspec = Palco::Gemspec.new(@r)
+      gemspec.create
 
     end
 

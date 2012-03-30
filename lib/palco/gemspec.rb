@@ -1,8 +1,8 @@
 module Palco
   class Gemspec < Palco::FileBase
 
-    def initialize(root_dir, spec_name)
-      super(root_dir, spec_name)
+    def initialize(root_dir)
+      super(root_dir, "sinatra_#{root_dir}.gemspec")
       @file_content = "# -*- encoding: utf-8 -*-"
       @file_content << "$:.push File.expand_path(\"../lib\", __FILE__)\n"
       @file_content << "require \"palco/version\"\n"
