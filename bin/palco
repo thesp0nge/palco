@@ -43,6 +43,10 @@ if name.nil?
   exit 1
 end
 
+if name == "."
+  name = Dir.pwd.split("/").last
+end
+
 if destroy
   printf "palco is destroying a stage named #{name}: ".color(:white)
   base = Palco::Base.new(name)
